@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FIXEdge>
+  <BusinessLayer>
+    <DllHandlers>
+      <Handler Description="JSONMapping Handler" DllName="libJSONMappingHandler.so" Name="JSONMapping"/>
+      <Handler Description="FMXML Handler" DllName="libFMXMLHandler.so" Name="FMXMLHandler"/>
+    </DllHandlers>
+    <Rule Description="Convert FIX tag-value message to FMXML">
+      <Source Name="FE-SC"/>
+      <Condition>
+        <NotEqualField Field="35" Value="n"/>
+      </Condition>
+      <Action>
+        <HandlerAction ConvertDateTime="true" Name="FMXMLHandler"/>
+        <Send Name="FE-SC"/>
+      </Action>
+    </Rule>
+    <DefaultRule>
+      <Action>
+        <DoNothing/>
+      </Action>
+    </DefaultRule>
+  </BusinessLayer>
+</FIXEdge>
